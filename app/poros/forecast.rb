@@ -26,14 +26,20 @@ class Forecast
     @visibility = forecast_data[:currently][:visibility]
     @uv_index = forecast_data[:currently][:uvIndex]
     @day_summary = forecast_data[:daily][:data][0][:summary]
-    @night_summary = find_night_summary(forecast_data)[0][:summary]
+    @night_summary = find_night_summary(forecast_data)
     @hourly_forecasts = parse_hourly_forecasts(forecast_data[:hourly][:data][0..7])
     @daily_forecasts = parse_daily_forecasts(forecast_data[:daily][:data][1..5])
   end
 
   def find_night_summary(forecast)
-    forecast[:hourly][:data].select do |hourly_forecast|
+    summary = forecast[:hourly][:data].select do |hourly_forecast|
       hourly_forecast[:time] == @time.change({ hour: 20 }).to_i
+    end
+
+    if summary.empty?
+      return forecast[:hourly][:data][0][:summary]
+    else
+      return summary[0][:summary]
     end
   end
 
