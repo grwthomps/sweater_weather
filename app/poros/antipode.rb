@@ -4,12 +4,12 @@ class Antipode
               :forecast,
               :search_location
 
-  def initialize(origin_city, antipode_city, forecast_data)
+  def initialize(antipode_city, summary, current_temperature, origin_city)
     @id = SecureRandom.hex(2)
     @location_name = antipode_city
     @forecast = {
-                  summary: forecast_data[:currently][:summary],
-                  current_temperature: forecast_data[:currently][:temperature]
+                  summary: summary,
+                  current_temperature: current_temperature
                 }
     @search_location = origin_city
   end

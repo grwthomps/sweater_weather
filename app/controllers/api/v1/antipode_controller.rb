@@ -1,7 +1,8 @@
 class Api::V1::AntipodeController < ApplicationController
   def index
     facade = AntipodeFacade.new
-    render json: AntipodeSerializer.new(facade.retrieve_antipode(location_params))
+    antipode = facade.retrieve_antipode(location_params)
+    render json: AntipodeSerializer.new(antipode)
   end
 
   private
