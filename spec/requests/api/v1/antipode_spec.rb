@@ -8,7 +8,7 @@ RSpec.describe 'API V1 Antipode', :vcr, type: 'request' do
       expect(response).to be_successful
 
       antipode = JSON.parse(response.body)
-      expect(forecast["data"]["attributes"]).not_to be_empty
+      expect(antipode["data"]["attributes"]).not_to be_empty
     end
   end
 end
