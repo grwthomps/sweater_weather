@@ -9,6 +9,11 @@ RSpec.describe 'API V1 Antipode', :vcr, type: 'request' do
 
       antipode = JSON.parse(response.body)
       expect(antipode["data"]["attributes"]).not_to be_empty
+      expect(antipode["data"]["attributes"]["location_name"]).not_to be_empty
+      expect(antipode["data"]["attributes"]["forecast"]).not_to be_empty
+      expect(antipode["data"]["attributes"]["forecast"]["summary"]).not_to be_empty
+      expect(antipode["data"]["attributes"]["forecast"]["current_temperature"]).not_to be_nil
+      expect(antipode["data"]["attributes"]["search_location"]).not_to be_empty
     end
   end
 end
