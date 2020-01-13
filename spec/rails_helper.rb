@@ -45,6 +45,18 @@ Shoulda::Matchers.configure do |config|
   end
 end
 
+require 'vcr'
+require 'webmock/rspec'
+
+VCR.configure do |config|
+  config.ignore_localhost = true
+  config.cassette_library_dir = 'spec/cassettes'
+  config.hook_into :webmock
+  config.configure_rspec_metadata!
+  config.filter_sensitive_data("<google_api_key>") { ENV['google_api_key'] }
+  config.filter_sensitive_data("<dark_sky_api_key>") { ENV['dark_sky_api_key'] }
+end
+
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
 

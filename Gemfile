@@ -30,6 +30,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'figaro'
 gem 'faraday'
+gem 'fast_jsonapi'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -41,6 +42,8 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'pry'
   gem 'simplecov'
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :development do
