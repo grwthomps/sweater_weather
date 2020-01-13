@@ -1,5 +1,5 @@
 class AntipodeFacade
-  def initialize(location)
+  def retrieve_antipode(location)
     google_service = GoogleService.new
     geolocation_data = google_service.fetch_lat_long(location)
 
