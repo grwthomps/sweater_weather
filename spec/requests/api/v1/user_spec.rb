@@ -13,7 +13,6 @@ RSpec.describe "API V1 Users", :vcr, type: 'request' do
 
       it "creates a new user" do
         expect { post "/api/v1/users", params: valid_params }.to change(User, :count).by(+1)
-        binding.pry
         expect(response).to have_http_status :created
         expect(response.body['api_key']).to_not be_empty
       end
