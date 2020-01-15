@@ -15,7 +15,7 @@ class Forecast
               :daily_forecasts
 
   def initialize(forecast_data)
-    @id = SecureRandom.hex(2)
+    @id = nil
     @timezone = forecast_data[:timezone]
     @time = convert_time(forecast_data[:currently][:time])
     @current_summary = forecast_data[:currently][:summary]
