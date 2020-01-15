@@ -28,5 +28,41 @@ RSpec.describe 'API V1 Road Trip', type: 'request' do
       expect(trip["data"]["attributes"]["origin"]).to eq("Denver,CO")
       expect(trip["data"]["attributes"]["destination"]).to eq("Pueblo,CO")
     end
+
+    let(:invalid_params) do
+      {
+        "origin": "Denver,CO",
+        "destination": "Pueblo,CO",
+        "api_key": 'a17537666d53cfe4df0a719'
+      }
+    end
+
+    it 'returns error with invalid api key' do
+      post '/api/v1/road_trip', params: invalid_params
+      expect(response).to have_http_status(401)
+
+      error = JSON.parse(response.body)
+
+      expect(error["error"]).not_to be_empty
+      expect(error["error"]).to eq("Invalid api key.")
+    end
+
+    let(:incorrect_params) do
+      {
+        "origin": "",
+        "destination": "Pueblo,CO",
+        "api_key": @user.api_key
+      }
+    end
+
+    it 'returns error with empty or invalid origin or destination' do
+      post '/api/v1/road_trip', params: incorrect_params
+      expect(response).to have_http_status(400)
+
+      error = JSON.parse(response.body)
+
+      expect(error["error"]).not_to be_empty
+      expect(error["error"]).to eq("Invalid request or no results found.")
+    end
   end
 end
