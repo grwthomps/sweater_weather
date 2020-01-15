@@ -4,7 +4,7 @@ class GoogleService
       req.params['address'] = location
     end
 
-    JSON.parse(response.body, symbolize_names: true)
+    parse_response(response)
   end
 
   def fetch_directions(origin, destination)
@@ -13,7 +13,7 @@ class GoogleService
       req.params['destination'] = destination
     end
 
-    JSON.parse(response.body, symbolize_names: true)
+    parse_response(response)
   end
 
   private
@@ -23,5 +23,9 @@ class GoogleService
       url: 'https://maps.googleapis.com/maps/api',
       params: {'key' => ENV['google_api_key']}
     )
+  end
+
+  def parse_response(response)
+    JSON.parse(response.body, symbolize_names: true)
   end
 end
