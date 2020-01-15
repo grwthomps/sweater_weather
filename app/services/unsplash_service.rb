@@ -1,5 +1,5 @@
 class UnsplashService
-  def fetch_background(location)
+  def self.fetch_background(location)
     response = Faraday.get('https://api.unsplash.com/search/photos') do |req|
       req.params['client_id'] = ENV['unsplash_access_key']
       req.params['orientation'] = 'landscape'
